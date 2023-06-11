@@ -25,10 +25,11 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
         <java.version>18</java.version>
-        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+        <spring.boot.version>3.1.0</spring.boot.version>
         <mysql.version>8.0.21</mysql.version>
         <hutool.version>5.4.5</hutool.version>
         <user.agent.version>1.20</user.agent.version>
+        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     </properties>
 
     <repositories>
@@ -47,6 +48,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- springboot依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -54,6 +56,19 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring.boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- lombok，自动插入到编辑器和构建工具中，增强java的性能 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <optional>true</optional>
+            </dependency>
+            <!-- MySQL提供的JDBC驱动包 -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -71,6 +86,48 @@
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${user.agent.version}</version>
             </dependency>
+            <!-- 基于注解的，而且是编译时APT（annotation processor tool）的一个用于Java的Bean的映射器 -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!-- lombok配套插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <!-- MapStruct配套插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>
+                        <!-- other annotation processors -->
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
