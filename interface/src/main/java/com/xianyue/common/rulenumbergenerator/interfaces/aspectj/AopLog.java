@@ -29,9 +29,8 @@ import java.util.Objects;
 /**
  * 使用 aop 切面记录请求日志信息
  *
- * @author yangkai.shen
- * @author chen qi
- * @date Created in 2018-10-01 22:05
+ * @author xianyue
+ * @date Created in 2023-06-11 19:35
  */
 @Aspect
 @Component
@@ -54,7 +53,6 @@ public class AopLog {
      */
     @Around("log()")
     public Object aroundLog(ProceedingJoinPoint point) throws Throwable {
-
         // 开始打印请求日志
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
