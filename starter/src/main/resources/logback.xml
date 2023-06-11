@@ -3,6 +3,20 @@
   <property name="FILE_ERROR_PATTERN"
             value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} %file:%line: %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
   <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+	<!-- 彩色日志格式 -->
+	<property name="CONSOLE_LOG_PATTERN"
+			  value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} bishengbo %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{50}){cyan} %clr(:){faint} %file:%line - %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+	<!-- graylog全日志格式 -->
+	<property name="GRAY_LOG_FULL_PATTERN"
+			  value="%n%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%logger{50}] %file:%line%n%-5level: %msg%n"/>
+	<!-- graylog简化日志格式 -->
+	<property name="GRAY_LOG_SHORT_PATTERN"
+			  value="%m%nopex"/>
+	<!-- 获取服务名 -->
+	<springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
+
+
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>INFO</level>
@@ -76,4 +90,39 @@
 		<appender-ref ref="FILE_INFO"/>
 		<appender-ref ref="FILE_ERROR"/>
 	</root>
+
+	<!-- MyBatis log configure -->
+	<logger name="com.apache.ibatis" level="INFO"/>
+	<logger name="org.mybatis.spring" level="DEBUG"/>
+	<logger name="java.sql.Connection" level="DEBUG"/>
+	<logger name="java.sql.Statement" level="DEBUG"/>
+	<logger name="java.sql.PreparedStatement" level="DEBUG"/>
+
+	<!-- 减少部分debug日志 -->
+	<logger name="druid.sql" level="INFO"/>
+	<logger name="org.apache.shiro" level="INFO"/>
+	<logger name="org.mybatis.spring" level="INFO"/>
+	<logger name="org.springframework" level="INFO"/>
+	<logger name="org.springframework.context" level="WARN"/>
+	<logger name="org.springframework.beans" level="WARN"/>
+	<logger name="com.baomidou.mybatisplus" level="INFO"/>
+	<logger name="org.apache.ibatis.io" level="INFO"/>
+	<logger name="org.apache.velocity" level="INFO"/>
+	<logger name="org.eclipse.jetty" level="INFO"/>
+	<logger name="io.undertow" level="INFO"/>
+	<logger name="org.xnio.nio" level="INFO"/>
+	<logger name="org.thymeleaf" level="INFO"/>
+	<logger name="springfox.documentation" level="INFO"/>
+	<logger name="org.hibernate.validator" level="INFO"/>
+	<logger name="com.netflix.loadbalancer" level="INFO"/>
+	<logger name="com.netflix.hystrix" level="INFO"/>
+	<logger name="com.netflix.zuul" level="INFO"/>
+	<logger name="de.codecentric" level="INFO"/>
+	<!-- cache INFO -->
+	<logger name="net.sf.ehcache" level="INFO"/>
+	<logger name="org.springframework.cache" level="INFO"/>
+	<!-- cloud -->
+	<logger name="org.apache.http" level="INFO"/>
+	<logger name="com.netflix.discovery" level="INFO"/>
+	<logger name="com.netflix.eureka" level="INFO"/>
 </configuration>
