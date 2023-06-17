@@ -2,6 +2,7 @@ package com.xianyue.common.exception;
 
 import cn.hutool.http.HttpStatus;
 import com.xianyue.common.core.response.Error;
+import com.xianyue.common.exception.enums.Language;
 import org.slf4j.helpers.MessageFormatter;
 
 import javax.validation.ConstraintViolationException;

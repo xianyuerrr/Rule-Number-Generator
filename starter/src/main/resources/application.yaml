@@ -13,7 +13,7 @@ spring:
       idle-timeout: 30000
       pool-name: SpringBootDemoHikariCP
       max-lifetime: 60000
-      connection-timeout: 30000
+      connection-timeout: 3000
   jpa:
     show-sql: true
     hibernate:
@@ -42,3 +42,6 @@ logging:
     org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+jackson:
+  serialization:
+    FAIL_ON_EMPTY_BEANS: false

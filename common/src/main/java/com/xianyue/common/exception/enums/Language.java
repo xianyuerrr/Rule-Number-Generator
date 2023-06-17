@@ -1,4 +1,4 @@
-package com.xianyue.common.exception;
+package com.xianyue.common.exception.enums;
 
 /**
  * @Title: Language
