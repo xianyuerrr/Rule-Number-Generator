@@ -17,6 +17,7 @@
         <module>interface</module>
         <module>infrastructure</module>
         <module>starter</module>
+        <module>common</module>
     </modules>
 
     <properties>
