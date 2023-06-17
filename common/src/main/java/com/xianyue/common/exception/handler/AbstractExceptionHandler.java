@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Title: AbstractExceptionHandler
  * @Package: com.xianyue.common.exception.handler
- * @Description:
+ * @Description: 异常处理虚类
  * @Author: xianyue
  * @Date: 2023/6/17 13:30
  */

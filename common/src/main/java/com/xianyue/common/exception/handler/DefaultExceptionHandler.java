@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * @Title: DefaultExceptionHandler
  * @Package: com.xianyue.common.exception.handler
- * @Description:
+ * @Description: 默认异常处理类
  * @Author: xianyue
  * @Date: 2023/6/17 13:38
  */
@@ -21,8 +21,7 @@ public class DefaultExceptionHandler extends AbstractExceptionHandler {
     @Override
     public ApiResponse handleException(Exception exception) {
         ApiResponse response = null;
-        if (exception instanceof CommonException) {
-            CommonException commonException = (CommonException) exception;
+        if (exception instanceof CommonException commonException) {
             if (Objects.isNull(commonException.getData())) {
                 response = ApiResponse.fail(commonException.getErrorList());
             } else {
