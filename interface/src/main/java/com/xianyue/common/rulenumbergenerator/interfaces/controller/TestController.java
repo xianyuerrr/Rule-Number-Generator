@@ -3,7 +3,10 @@ package com.xianyue.common.rulenumbergenerator.interfaces.controller;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.xianyue.common.exception.CommonException;
+import com.xianyue.common.rulenumbergenerator.domain.test.repository.UserDao;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 测试 Controller
@@ -22,6 +26,9 @@ import java.util.Map;
 @RequestMapping("/bi")
 @RestController
 public class TestController {
+    @Autowired
+    private UserDao userDao;
+
     /**
      * 测试方法
      *
@@ -30,6 +37,9 @@ public class TestController {
      */
     @GetMapping("/test")
     public Dict test(String who) {
+        if (StrUtil.isBlank(who)) {
+            throw new CommonException("100002");
+        }
         return Dict.create().set("who", StrUtil.isBlank(who) ? "me" : who);
     }
 

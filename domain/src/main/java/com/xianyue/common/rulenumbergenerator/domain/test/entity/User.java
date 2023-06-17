@@ -1,6 +1,6 @@
 package com.xianyue.common.rulenumbergenerator.domain.test.entity;
 
-import com.xianyue.common.rulenumbergenerator.domain.test.entity.base.AbstractAuditModel;
+import com.xianyue.common.rulenumbergenerator.domain.test.entity.base.BaseModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,7 +35,7 @@ import java.util.Date;
 @Entity
 @Table(name = "orm_user")
 @ToString(callSuper = true)
-public class User extends AbstractAuditModel {
+public class User extends BaseModel {
     /**
      * 用户名
      */

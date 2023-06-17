@@ -1,8 +1,0 @@
-server:
-    port: 8080
-    servlet:
-        context-path: /rulenumbergenerator
-
-logging:
-    level:
-        org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace

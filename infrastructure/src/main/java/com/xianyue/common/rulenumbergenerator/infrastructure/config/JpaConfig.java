@@ -24,29 +24,29 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaAuditing
-@EnableJpaRepositories(basePackages = "com.xianyue.common.rulenumbergenerator.domain.*.repository", transactionManagerRef = "jpaTransactionManager")
+// @EnableJpaRepositories(basePackages = "com.xianyue.common.rulenumbergenerator.domain.*.repository", transactionManagerRef = "jpaTransactionManager")
 public class JpaConfig {
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource dataSource() {
-        return DataSourceBuilder.create().build();
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        HibernateJpaVendorAdapter japVendor = new HibernateJpaVendorAdapter();
-        japVendor.setGenerateDdl(false);
-        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactory.setDataSource(dataSource());
-        entityManagerFactory.setJpaVendorAdapter(japVendor);
-        entityManagerFactory.setPackagesToScan("com.xianyue.common.rulenumbergenerator.domain.*.model");
-        return entityManagerFactory;
-    }
-
-    @Bean
-    public PlatformTransactionManager jpaTransactionManager(EntityManagerFactory entityManagerFactory) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory);
-        return transactionManager;
-    }
+    // @Bean
+    // @ConfigurationProperties(prefix = "spring.datasource")
+    // public DataSource dataSource() {
+    //     return DataSourceBuilder.create().build();
+    // }
+    //
+    // @Bean
+    // public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    //     HibernateJpaVendorAdapter japVendor = new HibernateJpaVendorAdapter();
+    //     japVendor.setGenerateDdl(false);
+    //     LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+    //     entityManagerFactory.setDataSource(dataSource());
+    //     entityManagerFactory.setJpaVendorAdapter(japVendor);
+    //     entityManagerFactory.setPackagesToScan("com.xianyue.common.rulenumbergenerator.domain.*.entity");
+    //     return entityManagerFactory;
+    // }
+    //
+    // @Bean
+    // public PlatformTransactionManager jpaTransactionManager(EntityManagerFactory entityManagerFactory) {
+    //     JpaTransactionManager transactionManager = new JpaTransactionManager();
+    //     transactionManager.setEntityManagerFactory(entityManagerFactory);
+    //     return transactionManager;
+    // }
 }

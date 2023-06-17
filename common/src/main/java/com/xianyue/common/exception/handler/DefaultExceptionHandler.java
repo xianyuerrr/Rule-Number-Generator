@@ -2,6 +2,7 @@ package com.xianyue.common.exception.handler;
 
 import com.xianyue.common.core.response.ApiResponse;
 import com.xianyue.common.exception.CommonException;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
  * @Author: xianyue
  * @Date: 2023/6/17 13:38
  */
+@Component
 public class DefaultExceptionHandler extends AbstractExceptionHandler {
     @Override
     public boolean isSupport(Exception exception) {

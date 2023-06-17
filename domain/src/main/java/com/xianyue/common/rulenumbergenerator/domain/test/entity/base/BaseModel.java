@@ -9,7 +9,9 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -27,7 +29,7 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public abstract class AbstractAuditModel implements Serializable {
+public abstract class BaseModel implements Serializable {
     /**
      * 主键
      */
@@ -36,18 +38,33 @@ public abstract class AbstractAuditModel implements Serializable {
     private Long id;
 
     /**
+     * 创建人
+     */
+    @Column(name = "created_by", nullable = false)
+    @CreatedBy
+    private int createdBy;
+
+    /**
      * 创建时间
      */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_time", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIME)
+    @Column(name = "creation_date", nullable = false, updatable = false)
     @CreatedDate
-    private Date createTime;
+    private Date creationDate;
+
+    /**
+     * 上次更新人
+     */
+
+    @Column(name = "last_update_by", nullable = false)
+    @LastModifiedBy
+    private int lastUpdateBy;
 
     /**
      * 上次更新时间
      */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_update_time", nullable = false)
+    @Temporal(TemporalType.TIME)
+    @Column(name = "last_update_date", nullable = false)
     @LastModifiedDate
-    private Date lastUpdateTime;
+    private Date lastUpdateDate;
 }

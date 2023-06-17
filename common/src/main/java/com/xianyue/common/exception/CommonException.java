@@ -22,7 +22,7 @@ public class CommonException extends RuntimeException {
     private final List<Error> errorList;
 
     public CommonException(String errorCode) {
-        this(errorCode, null, null, null);
+        this(errorCode, null, null, (Object) null);
     }
 
     public CommonException(String errorCode, Object... args) {
