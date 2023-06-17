@@ -25,6 +25,9 @@ public class ApiResponse<T> {
         this(status, data, null);
     }
 
+    public ApiResponse() {
+    }
+
     /**
      * 供业务代码使用
      *

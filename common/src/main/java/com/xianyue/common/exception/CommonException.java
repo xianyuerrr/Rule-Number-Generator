@@ -21,6 +21,14 @@ public class CommonException extends RuntimeException {
 
     private final List<Error> errorList;
 
+    public CommonException(String errorCode) {
+        this(errorCode, null, null, null);
+    }
+
+    public CommonException(String errorCode, Object... args) {
+        this(errorCode, null, null, args);
+    }
+
     public CommonException(String errorCode, String sourceId, Throwable cause, Object... args) {
         super(errorCode, cause);
         errorList = Collections.singletonList(ExceptionUtils.getError(errorCode, sourceId, args));
