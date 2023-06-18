@@ -12,9 +12,24 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Error {
+    /**
+     * 错误码
+     */
     private String errorCode;
 
+
+    /**
+     * 来源对象Id
+     */
+    private String sourceId;
+
+    /**
+     * 错误信息
+     */
     private String errorMsg;
 
-    private String sourceId;
+    /**
+     * 错误上下文参数
+     */
+    private Object[] args;
 }

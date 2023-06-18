@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    jdbc-url: jdbc:mysql://127.0.0.1:3306/common_util?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+    username: root
+    password: 307860
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      connection-test-query: SELECT 1 FROM DUAL
+      maximum-pool-size: 20
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: SpringBootDemoHikariCP
+      max-lifetime: 60000
+      connection-timeout: 3000
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+#      create ----每次运行该程序，没有表格会新建表格，表内有数据会清空
+#      create-drop ----每次程序结束的时候会清空表
+#      update ---- 每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新
+#      validate ---- 运行程序会校验数据与数据库的字段类型是否相同，不同会报错。
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: true
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - "classpath:db/schema.sql"
+      data-locations:
+        - "classpath:db/data.sql"
+server:
+  port: 8080
+  servlet:
+    context-path: /rulenumbergenerator
+logging:
+  level:
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+jackson:
+  serialization:
+    FAIL_ON_EMPTY_BEANS: false
