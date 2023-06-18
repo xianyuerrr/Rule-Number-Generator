@@ -1,6 +1,6 @@
 package com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity;
 
-import com.xianyue.common.oql.core.BaseModel;
+import com.xianyue.common.core.oql.BaseModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

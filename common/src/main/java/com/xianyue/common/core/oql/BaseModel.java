@@ -1,4 +1,4 @@
-package com.xianyue.common.oql.core;
+package com.xianyue.common.core.oql;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

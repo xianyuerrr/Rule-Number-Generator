@@ -17,7 +17,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
 #      create ----每次运行该程序，没有表格会新建表格，表内有数据会清空
 #      create-drop ----每次程序结束的时候会清空表
 #      update ---- 每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新
@@ -28,7 +28,7 @@ spring:
     open-in-view: true
   sql:
     init:
-      mode: always
+      mode: embedded
       schema-locations:
         - "classpath:db/schema.sql"
       data-locations:
@@ -42,6 +42,3 @@ logging:
     org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace
     org.hibernate.SQL: debug
     org.hibernate.type: trace
-jackson:
-  serialization:
-    FAIL_ON_EMPTY_BEANS: false
