@@ -5,8 +5,8 @@ import com.xianyue.common.exception.handler.ExceptionProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @Author: xianyue
  * @Date: 2023/6/17 22:09
  */
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionMapper extends ResponseEntityExceptionHandler {
     @Autowired
     private ExceptionProcessor exceptionProcessor;

@@ -17,7 +17,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
 #      create ----每次运行该程序，没有表格会新建表格，表内有数据会清空
 #      create-drop ----每次程序结束的时候会清空表
 #      update ---- 每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新
