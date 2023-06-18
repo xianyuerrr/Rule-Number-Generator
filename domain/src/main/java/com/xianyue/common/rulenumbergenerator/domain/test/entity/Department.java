@@ -1,6 +1,6 @@
 package com.xianyue.common.rulenumbergenerator.domain.test.entity;
 
-import com.xianyue.common.rulenumbergenerator.domain.test.entity.base.BaseModel;
+import com.xianyue.common.oql.core.BaseModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,7 +36,6 @@ import java.util.Collection;
 @Table(name = "orm_department")
 @ToString(callSuper = true)
 public class Department extends BaseModel {
-
     /**
      * 部门名
      */

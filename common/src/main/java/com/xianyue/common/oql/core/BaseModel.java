@@ -1,4 +1,4 @@
-package com.xianyue.common.rulenumbergenerator.domain.test.entity.base;
+package com.xianyue.common.oql.core;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -26,9 +26,9 @@ import java.util.Date;
  * @author yangkai.shen
  * @date Created in 2018-11-07 14:01
  */
+@Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@Data
 public abstract class BaseModel implements Serializable {
     /**
      * 主键
@@ -40,9 +40,9 @@ public abstract class BaseModel implements Serializable {
     /**
      * 创建人
      */
-    @Column(name = "created_by", nullable = false)
+    @Column(name = "created_by", nullable = false, updatable = false)
     @CreatedBy
-    private int createdBy;
+    private Integer createdBy;
 
     /**
      * 创建时间
@@ -58,7 +58,7 @@ public abstract class BaseModel implements Serializable {
 
     @Column(name = "last_update_by", nullable = false)
     @LastModifiedBy
-    private int lastUpdateBy;
+    private Integer lastUpdateBy;
 
     /**
      * 上次更新时间
