@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
   <property name="FILE_ERROR_PATTERN"
-            value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} %file:%line: %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+            value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} %file:%line: %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
   <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
 	<!-- 彩色日志格式 -->
+	<!-- %clr（）{faint} ——设置内容颜色 -->
+	<!-- 支持以下颜色和样式：blue、cyan、faint、green、magenta、red、yellow -->
+	<!-- %d等特殊符号理解 -->
+	<!-- %5p 表示当前内容占多少字符（这里为5个） -->
+	<!-- ${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS} 表示当LOG_DATEFORMAT_PATTERN 为null时取后面的内容，也就是-yyyy-MM-dd HH:mm:ss.SSS -->
 	<property name="CONSOLE_LOG_PATTERN"
-			  value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} bishengbo %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{50}){cyan} %clr(:){faint} %file:%line - %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+			  value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){green} %clr(${LOG_LEVEL_PATTERN:-%5p}){cyan} %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{50}){cyan} %clr(:){faint} %file:%line - %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 	<!-- graylog全日志格式 -->
 	<property name="GRAY_LOG_FULL_PATTERN"
 			  value="%n%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%logger{50}] %file:%line%n%-5level: %msg%n"/>
@@ -125,4 +130,7 @@
 	<logger name="org.apache.http" level="INFO"/>
 	<logger name="com.netflix.discovery" level="INFO"/>
 	<logger name="com.netflix.eureka" level="INFO"/>
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="TRACE"/>
+	<logger name="org.hibernate.type" level="TRACE"/>
+	<logger name="org.hibernate.SQL" level="debug"/>
 </configuration>

@@ -5,6 +5,9 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
@@ -37,6 +40,13 @@ import java.util.Collection;
 @ToString(callSuper = true)
 public class Department extends BaseModel {
     /**
+     * 主键
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long departmentId;
+
+    /**
      * 部门名
      */
     @Column(name = "name", columnDefinition = "varchar(255) not null")
@@ -46,7 +56,7 @@ public class Department extends BaseModel {
      * 上级部门id
      */
     @ManyToOne(cascade = {CascadeType.REFRESH}, optional = true)
-    @JoinColumn(name = "superior", referencedColumnName = "id")
+    @JoinColumn(name = "superior", referencedColumnName = "departmentId")
     private Department superior;
     /**
      * 所属层级

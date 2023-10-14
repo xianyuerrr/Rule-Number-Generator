@@ -1,8 +1,11 @@
 spring:
   datasource:
-    jdbc-url: jdbc:mysql://127.0.0.1:3306/common_util?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
-    username: root
-    password: 307860
+    url: ${rulenumber.db.url}
+    #    如果手工 build，很多时候基本设置就不起作用了，因为 Hikari 等没有 url 属性(但有一个jdbcUrl属性)，
+    #    Spring Boot可以支持，见 DataSourceConfiguration，但手工 build 则需自行处理
+    jdbc-url: ${spring.datasource.url}
+    username: ${rulenumber.db.username}
+    password: ${rulenumber.db.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -17,28 +20,24 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
-#      create ----每次运行该程序，没有表格会新建表格，表内有数据会清空
-#      create-drop ----每次程序结束的时候会清空表
-#      update ---- 每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新
-#      validate ---- 运行程序会校验数据与数据库的字段类型是否相同，不同会报错。
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+      ddl-auto: update
+      #      create ----每次运行该程序，没有表格会新建表格，表内有数据会清空
+      #      create-drop ----每次程序结束的时候会清空表
+      #      update ---- 每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新
+      #      validate ---- 运行程序会校验数据与数据库的字段类型是否相同，不同会报错。
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     open-in-view: true
-  sql:
-    init:
-      mode: embedded
-      schema-locations:
-        - "classpath:db/schema.sql"
-      data-locations:
-        - "classpath:db/data.sql"
+  output:
+    ansi:
+#      彩色日志，不启用时配置文件中色彩配置可能无效
+      enabled: always
+  profiles:
+    include: db
 server:
   port: 8080
   servlet:
     context-path: /rulenumbergenerator
 logging:
-  level:
-    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
+#  指定日志配置文件
+  config: "classpath:config/logback.xml"

@@ -2,7 +2,12 @@ package com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository;
 
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleSegmentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Title: RuleSegmentDao
@@ -13,4 +18,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RuleSegmentDao extends JpaRepository<RuleSegmentEntity, Long> {
+    @Transactional
+    @Modifying
+    @Query("update ruleSegment r set r.description = ?1 where r.id = ?2")
+    int updateDescriptionById(@Nullable String description, @NonNull Long id);
 }
