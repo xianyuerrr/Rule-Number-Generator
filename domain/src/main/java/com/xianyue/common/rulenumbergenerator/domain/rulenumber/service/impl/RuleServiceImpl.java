@@ -1,11 +1,16 @@
 package com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleConditionEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleSegmentEntity;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleConditionDao;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleDao;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleSegmentDao;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.RuleService;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.segmentgenerator.SegmentGenerator;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleDetail;
+import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @Title: RuleServiceImpl
@@ -30,6 +36,23 @@ public class RuleServiceImpl implements RuleService {
 
     @Autowired
     private final RuleSegmentDao ruleSegmentDao;
+
+    @Autowired
+    private final RuleConditionDao ruleConditionDao;
+
+    @Autowired
+    private final List<SegmentGenerator> segmentGeneratorList;
+
+    private Map<String, SegmentGenerator> segmentTypeToSegmentGeneratorMap;
+
+    @PostConstruct
+    private void init() {
+        if (CollectionUtil.isEmpty(segmentGeneratorList)) {
+            segmentTypeToSegmentGeneratorMap = segmentGeneratorList.stream().collect(
+                    Collectors.groupingBy(SegmentGenerator::getSegmentType,
+                            Collectors.collectingAndThen(Collectors.toList(), value -> value.get(0))));
+        }
+    }
 
     @Override
     public RuleDetail createRule(RuleDetail ruleDetail) {
@@ -75,6 +98,16 @@ public class RuleServiceImpl implements RuleService {
 
     @Override
     public String generateRuleNumber(String bizCode, String ruleCondition, Map<String, Object> params) {
-        return null;
+        RuleConditionEntity ruleConditionEntity = ruleConditionDao.findByBizCodeAndRuleCondition(bizCode, ruleCondition);
+        RuleDetail ruleDetail = findRuleById(ruleConditionEntity.getRuleId());
+        StringBuilder stringBuilder = new StringBuilder();
+        List<RuleSegmentEntity> segmentList = ruleDetail.getSegmentList();
+
+        SegmentGenerator segmentGenerator;
+        for (RuleSegmentEntity ruleSegmentEntity : segmentList) {
+            segmentGenerator = segmentTypeToSegmentGeneratorMap.get(ruleSegmentEntity.getSegmentType());
+            stringBuilder.append(segmentGenerator.generateNumber(ruleSegmentEntity));
+        }
+        return stringBuilder.toString();
     }
 }

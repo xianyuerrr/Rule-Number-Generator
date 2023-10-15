@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RuleConditionDao extends JpaRepository<RuleConditionEntity, Long> {
+    RuleConditionEntity findByBizCodeAndRuleCondition(String bizCode, String ruleCondition);
 }
