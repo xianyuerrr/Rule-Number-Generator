@@ -9,6 +9,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Title: RuleSegmentDao
  * @Package: com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository
@@ -18,8 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public interface RuleSegmentDao extends JpaRepository<RuleSegmentEntity, Long> {
+    List<RuleSegmentEntity> findByRuleId(@NonNull Long ruleId);
+
     @Transactional
     @Modifying
-    @Query("update ruleSegment r set r.description = ?1 where r.id = ?2")
+    @Query("update ruleSegment r set r.description = ?1 where r.ruleSegmentId = ?2")
     int updateDescriptionById(@Nullable String description, @NonNull Long id);
 }

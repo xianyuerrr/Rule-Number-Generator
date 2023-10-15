@@ -23,7 +23,7 @@ public interface RuleService {
 
     List<RuleSegmentEntity> cancelRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList);
 
-    RuleEntity findRuleById(Long ruleId);
+    RuleDetail findRuleById(Long ruleId);
 
     List<RuleEntity> findRuleByIds(List<Long> ruleIdList);
 

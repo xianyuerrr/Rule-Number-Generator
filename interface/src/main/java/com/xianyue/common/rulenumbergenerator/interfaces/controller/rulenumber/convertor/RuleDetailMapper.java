@@ -6,7 +6,6 @@ import com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.d
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.stereotype.Component;
 
 /**
  * @Title: RuleDetailMapper
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
  * @Author: xianyue
  * @Date: 2023/10/15 11:37
  */
-@Component
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface RuleDetailMapper extends CommonConverter<RuleDetail, RuleDetailDto> {
 }

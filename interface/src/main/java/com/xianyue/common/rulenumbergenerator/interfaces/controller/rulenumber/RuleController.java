@@ -1,9 +1,7 @@
 package com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber;
 
 import com.xianyue.common.core.response.ApiResponse;
-import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.RuleService;
-import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleDetail;
 import com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.convertor.RuleDetailMapper;
 import com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.dto.RuleDetailDto;
 import lombok.extern.slf4j.Slf4j;
@@ -31,12 +29,12 @@ public class RuleController {
     private RuleDetailMapper converter;
 
     @GetMapping("/findRuleById")
-    public RuleEntity findRuleById(Long ruleId) {
-        return ruleService.findRuleById(ruleId);
+    public ApiResponse<RuleDetailDto> findRuleById(Long ruleId) {
+        return ApiResponse.success(converter.convert(ruleService.findRuleById(ruleId)));
     }
 
     @PostMapping("/createRule")
-    public ApiResponse<RuleDetail> createRule(@RequestBody RuleDetailDto ruleDetail) {
-        return ApiResponse.success(ruleService.createRule(converter.convertReserve(ruleDetail)));
+    public ApiResponse<RuleDetailDto> createRule(@RequestBody RuleDetailDto ruleDetail) {
+        return ApiResponse.success(converter.convert(ruleService.createRule(converter.convertReserve(ruleDetail))));
     }
 }

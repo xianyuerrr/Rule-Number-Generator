@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @Title: RuleServiceImpl
@@ -54,8 +55,17 @@ public class RuleServiceImpl implements RuleService {
     }
 
     @Override
-    public RuleEntity findRuleById(Long ruleId) {
-        return ruleDao.findById(ruleId).get();
+    public RuleDetail findRuleById(Long ruleId) {
+        Optional<RuleEntity> byId = ruleDao.findById(ruleId);
+        if (byId.isEmpty()) {
+            return null;
+        }
+        RuleEntity ruleEntity = byId.get();
+        List<RuleSegmentEntity> ruleSegmentEntityList = ruleSegmentDao.findByRuleId(ruleEntity.getRuleId());
+        RuleDetail ruleDetail = new RuleDetail();
+        ruleDetail.setRule(ruleEntity);
+        ruleDetail.setSegmentList(ruleSegmentEntityList);
+        return ruleDetail;
     }
 
     @Override
