@@ -5,7 +5,7 @@ import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleSegme
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleDao;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleSegmentDao;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.RuleService;
-import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleVO;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleDetail;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,11 +31,11 @@ public class RuleServiceImpl implements RuleService {
     private final RuleSegmentDao ruleSegmentDao;
 
     @Override
-    public RuleVO createRule(RuleVO ruleVO) {
-        RuleEntity ruleEntity = ruleDao.save(ruleVO.getRule());
-        ruleVO.getSegmentList().forEach(ruleSegmentEntity -> ruleSegmentEntity.setRuleId(ruleEntity.getRuleId()));
-        ruleSegmentDao.saveAll(ruleVO.getSegmentList());
-        return ruleVO;
+    public RuleDetail createRule(RuleDetail ruleDetail) {
+        RuleEntity ruleEntity = ruleDao.save(ruleDetail.getRule());
+        ruleDetail.getSegmentList().forEach(ruleSegmentEntity -> ruleSegmentEntity.setRuleId(ruleEntity.getRuleId()));
+        ruleSegmentDao.saveAll(ruleDetail.getSegmentList());
+        return ruleDetail;
     }
 
     @Override

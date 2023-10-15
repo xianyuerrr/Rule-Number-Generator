@@ -1,10 +1,11 @@
 package com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber;
 
-import cn.hutool.core.lang.Dict;
 import com.xianyue.common.core.response.ApiResponse;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.RuleService;
-import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleVO;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleDetail;
+import com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.convertor.RuleDetailMapper;
+import com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.dto.RuleDetailDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,19 +27,16 @@ public class RuleController {
     @Autowired
     private RuleService ruleService;
 
-    /**
-     * 测试方法
-     *
-     * @param who 测试参数
-     * @return {@link Dict}
-     */
+    @Autowired
+    private RuleDetailMapper converter;
+
     @GetMapping("/findRuleById")
     public RuleEntity findRuleById(Long ruleId) {
         return ruleService.findRuleById(ruleId);
     }
 
     @PostMapping("/createRule")
-    public ApiResponse<RuleVO> createRule(@RequestBody RuleVO ruleVO) {
-        return ApiResponse.success(ruleService.createRule(ruleVO));
+    public ApiResponse<RuleDetail> createRule(@RequestBody RuleDetailDto ruleDetail) {
+        return ApiResponse.success(ruleService.createRule(converter.convertReserve(ruleDetail)));
     }
 }

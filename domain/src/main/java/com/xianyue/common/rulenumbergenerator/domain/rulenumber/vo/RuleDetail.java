@@ -14,7 +14,7 @@ import java.util.List;
  * @Date: 2023/10/14 18:48
  */
 @Data
-public class RuleVO {
+public class RuleDetail {
     private RuleEntity rule;
 
     private List<RuleSegmentEntity> segmentList;

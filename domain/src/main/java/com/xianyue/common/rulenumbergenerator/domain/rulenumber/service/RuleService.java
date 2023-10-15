@@ -2,7 +2,7 @@ package com.xianyue.common.rulenumbergenerator.domain.rulenumber.service;
 
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleSegmentEntity;
-import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleVO;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleDetail;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @Date: 2023/6/18 10:43
  */
 public interface RuleService {
-    RuleVO createRule(RuleVO ruleVO);
+    RuleDetail createRule(RuleDetail ruleDetail);
 
     List<RuleSegmentEntity> createRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList);
 
