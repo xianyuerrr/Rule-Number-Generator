@@ -5,8 +5,11 @@ import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleC
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.RuleConditionService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,17 +26,12 @@ public class RuleConditionServiceImpl implements RuleConditionService {
     private final RuleConditionDao ruleConditionDao;
 
     @Override
-    public RuleConditionEntity findRuleConditionById(Long ruleConditionId) {
-        return ruleConditionDao.findById(ruleConditionId).get();
+    public List<RuleConditionEntity> findRuleCondition(RuleConditionEntity ruleConditionEntity) {
+        return ruleConditionDao.findAll(Example.of(ruleConditionEntity), Sort.by(Sort.Order.desc("creationDate")));
     }
 
     @Override
-    public List<RuleConditionEntity> findRuleConditionByIds(List<Long> ruleConditionIdList) {
-        return ruleConditionDao.findAllById(ruleConditionIdList);
-    }
-
-    @Override
-    public List<RuleConditionEntity> createRuleCondition(List<RuleConditionEntity> ruleConditionEntityList) {
+    public List<RuleConditionEntity> createRuleCondition(Collection<RuleConditionEntity> ruleConditionEntityList) {
         return ruleConditionDao.saveAll(ruleConditionEntityList);
     }
 

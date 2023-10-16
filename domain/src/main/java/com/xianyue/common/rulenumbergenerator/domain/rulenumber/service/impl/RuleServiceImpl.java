@@ -16,6 +16,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,11 +45,11 @@ public class RuleServiceImpl implements RuleService {
     @Autowired
     private final List<SegmentGenerator> segmentGeneratorList;
 
-    private Map<String, SegmentGenerator> segmentTypeToSegmentGeneratorMap;
+    private Map<String, SegmentGenerator> segmentTypeToSegmentGeneratorMap = Collections.EMPTY_MAP;
 
     @PostConstruct
     private void init() {
-        if (CollectionUtil.isEmpty(segmentGeneratorList)) {
+        if (CollectionUtil.isNotEmpty(segmentGeneratorList)) {
             segmentTypeToSegmentGeneratorMap = segmentGeneratorList.stream().collect(
                     Collectors.groupingBy(SegmentGenerator::getSegmentType,
                             Collectors.collectingAndThen(Collectors.toList(), value -> value.get(0))));
