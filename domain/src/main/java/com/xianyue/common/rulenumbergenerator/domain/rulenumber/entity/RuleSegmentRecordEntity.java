@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 /**
  * @Title: RuleSegmentRecordEntity
@@ -15,6 +16,7 @@ import jakarta.persistence.Table;
  * @Author: xianyue
  * @Date: 2023/6/18 10:39
  */
+@Data
 @Entity(name = "ruleSegmentRecord")
 @Table(name = "tbl_number_generator_rule_sequence_record", schema = "rulenumbergenerator")
 public class RuleSegmentRecordEntity extends BaseModel {

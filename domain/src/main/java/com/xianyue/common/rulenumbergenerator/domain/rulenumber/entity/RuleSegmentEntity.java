@@ -45,7 +45,7 @@ public class RuleSegmentEntity extends BaseModel {
 
     private String text;
 
-    private String formatKey;
+    private String format;
 
     private String attributeName;
 
@@ -55,7 +55,7 @@ public class RuleSegmentEntity extends BaseModel {
 
     private Long sequenceFrom;
 
-    private String padding;
+    private Character padding;
 
     private String independentSequence;
 }

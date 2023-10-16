@@ -25,7 +25,7 @@ public interface RuleService {
 
     RuleDetail findRuleById(Long ruleId);
 
-    List<RuleEntity> findRuleByIds(List<Long> ruleIdList);
+    List<RuleEntity> findRuleByIdList(List<Long> ruleIdList);
 
-    String generateRuleNumber(String bizCode, String ruleCondition, Map<String, Object> params);
+    String generateRuleNumber(String bizCode, String ruleCondition, Map<String, String> params);
 }

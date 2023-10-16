@@ -3,6 +3,7 @@ package com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber;
 import com.xianyue.common.core.response.ApiResponse;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.RuleService;
 import com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.convertor.RuleDetailMapper;
+import com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.dto.GenerateRuleNumberDto;
 import com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.dto.RuleDetailDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,11 @@ public class RuleController {
     @PostMapping("/createRule")
     public ApiResponse<RuleDetailDto> createRule(@RequestBody RuleDetailDto ruleDetail) {
         return ApiResponse.success(converter.convert(ruleService.createRule(converter.convertReserve(ruleDetail))));
+    }
+
+    @PostMapping("/generateRuleNumber")
+    public ApiResponse<String> generateRuleNumber(@RequestBody GenerateRuleNumberDto generateRuleNumberDto) {
+        return ApiResponse.success(ruleService.generateRuleNumber(generateRuleNumberDto.getBizCode(),
+                generateRuleNumberDto.getRuleCondition(), generateRuleNumberDto.getParams()));
     }
 }

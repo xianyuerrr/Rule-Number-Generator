@@ -9,6 +9,7 @@ import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleD
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleSegmentDao;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.RuleService;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.segmentgenerator.SegmentGenerator;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleContext;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleDetail;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
@@ -92,21 +93,24 @@ public class RuleServiceImpl implements RuleService {
     }
 
     @Override
-    public List<RuleEntity> findRuleByIds(List<Long> ruleIdList) {
+    public List<RuleEntity> findRuleByIdList(List<Long> ruleIdList) {
         return ruleDao.findAllById(ruleIdList);
     }
 
     @Override
-    public String generateRuleNumber(String bizCode, String ruleCondition, Map<String, Object> params) {
+    public String generateRuleNumber(String bizCode, String ruleCondition, Map<String, String> params) {
         RuleConditionEntity ruleConditionEntity = ruleConditionDao.findByBizCodeAndRuleCondition(bizCode, ruleCondition);
         RuleDetail ruleDetail = findRuleById(ruleConditionEntity.getRuleId());
         StringBuilder stringBuilder = new StringBuilder();
         List<RuleSegmentEntity> segmentList = ruleDetail.getSegmentList();
 
         SegmentGenerator segmentGenerator;
+        RuleContext ruleContext = new RuleContext();
+        ruleContext.setParams(params);
         for (RuleSegmentEntity ruleSegmentEntity : segmentList) {
+            ruleContext.setRuleSegmentEntity(ruleSegmentEntity);
             segmentGenerator = segmentTypeToSegmentGeneratorMap.get(ruleSegmentEntity.getSegmentType());
-            stringBuilder.append(segmentGenerator.generateNumber(ruleSegmentEntity));
+            stringBuilder.append(segmentGenerator.generateNumber(ruleContext));
         }
         return stringBuilder.toString();
     }

@@ -3,7 +3,10 @@ package com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.segment
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleSegmentEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.enums.SegmentType;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.segmentgenerator.SegmentGenerator;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleContext;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * @Title: DynamicSegmentGeneratorImpl
@@ -15,8 +18,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class DynamicSegmentGeneratorImpl implements SegmentGenerator {
     @Override
-    public String generateNumber(RuleSegmentEntity ruleSegmentEntity) {
-        return null;
+    public String generateNumber(RuleContext ruleContext) {
+        RuleSegmentEntity ruleSegmentEntity = ruleContext.getRuleSegmentEntity();
+        Map<String, String> params = ruleContext.getParams();
+        String segmentStr = params.get(ruleSegmentEntity.getAttributeClz());
+
+        ruleContext.getCompositionKeyStr().append(segmentStr);
+
+        return segmentStr;
     }
 
     @Override

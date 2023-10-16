@@ -18,7 +18,7 @@ public class RuleSegmentDto implements Serializable {
     Integer maxLength;
     String segmentType;
     String text;
-    String formatKey;
+    String format;
     String attributeName;
     String attributeClz;
     Long sequenceTo;
