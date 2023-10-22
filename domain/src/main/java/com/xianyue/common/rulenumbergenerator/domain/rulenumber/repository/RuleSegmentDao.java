@@ -20,6 +20,7 @@ import java.util.List;
  */
 @Repository
 public interface RuleSegmentDao extends JpaRepository<RuleSegmentEntity, Long> {
+    @Query("select r from ruleSegment r where r.ruleId = ?1 order by r.segmentIdx asc")
     List<RuleSegmentEntity> findByRuleId(@NonNull Long ruleId);
 
     @Transactional

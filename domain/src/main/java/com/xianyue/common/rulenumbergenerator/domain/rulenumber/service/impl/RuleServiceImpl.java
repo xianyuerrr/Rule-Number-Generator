@@ -1,9 +1,13 @@
 package com.xianyue.common.rulenumbergenerator.domain.rulenumber.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.lang.Assert;
+import com.google.common.base.Objects;
+import com.xianyue.common.exception.CommonException;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleConditionEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleSegmentEntity;
+import com.xianyue.common.rulenumbergenerator.domain.rulenumber.enums.SegmentType;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleConditionDao;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleDao;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.repository.RuleSegmentDao;
@@ -59,6 +63,22 @@ public class RuleServiceImpl implements RuleService {
     @Override
     public RuleDetail createRule(RuleDetail ruleDetail) {
         RuleEntity ruleEntity = ruleDao.save(ruleDetail.getRule());
+        for (RuleSegmentEntity ruleSegment : ruleDetail.getSegmentList()) {
+            if (Objects.equal(SegmentType.String.name(), ruleSegment.getSegmentType())) {
+                Assert.notEmpty(ruleSegment.getText(), () -> new CommonException(""));
+            } else if (Objects.equal(SegmentType.Date.name(), ruleSegment.getSegmentType())) {
+                Assert.notEmpty(ruleSegment.getFormat());
+            } else if (Objects.equal(SegmentType.Dynamic.name(), ruleSegment.getSegmentType())) {
+                Assert.notEmpty(ruleSegment.getAttributeClz());
+                Assert.notEmpty(ruleSegment.getAttributeName());
+            } else if (Objects.equal(SegmentType.Sequence.name(), ruleSegment.getSegmentType())) {
+                Assert.notNull(ruleSegment.getSequenceFrom());
+                Assert.notNull(ruleSegment.getSequenceTo());
+                Assert.notNull(ruleSegment.getPadding());
+                Assert.notNull(ruleSegment.getMaxLength());
+            }
+        }
+
         ruleDetail.getSegmentList().forEach(ruleSegmentEntity -> ruleSegmentEntity.setRuleId(ruleEntity.getRuleId()));
         ruleSegmentDao.saveAll(ruleDetail.getSegmentList());
         return ruleDetail;

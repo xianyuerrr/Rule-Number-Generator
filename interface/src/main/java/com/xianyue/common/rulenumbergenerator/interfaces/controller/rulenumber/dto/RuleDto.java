@@ -2,16 +2,19 @@ package com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.
 
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleEntity;
 import lombok.Data;
-
-import java.io.Serializable;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * DTO for {@link RuleEntity}
  */
 @Data
-public class RuleDto implements Serializable {
-    Long ruleId;
-    String ruleName;
-    String description;
-    String enableFlag;
+public class RuleDto {
+    private Long ruleId;
+
+    @NotBlank
+    private String ruleName;
+
+    private String description;
+
+    private String enableFlag;
 }
