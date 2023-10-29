@@ -63,7 +63,17 @@ public class RuleServiceImpl implements RuleService {
     @Override
     public RuleDetail createRule(RuleDetail ruleDetail) {
         RuleEntity ruleEntity = ruleDao.save(ruleDetail.getRule());
-        for (RuleSegmentEntity ruleSegment : ruleDetail.getSegmentList()) {
+        List<RuleSegmentEntity> segmentList = ruleDetail.getSegmentList();
+        Assert.isTrue(segmentList.stream().allMatch(segment -> Objects.equal(segment.getRuleId(), ruleEntity.getRuleId())));
+        checkSegment(segmentList);
+
+        segmentList.forEach(ruleSegmentEntity -> ruleSegmentEntity.setRuleId(ruleEntity.getRuleId()));
+        ruleSegmentDao.saveAll(segmentList);
+        return ruleDetail;
+    }
+
+    private void checkSegment(List<RuleSegmentEntity> segmentEntityList) {
+        for (RuleSegmentEntity ruleSegment : segmentEntityList) {
             if (Objects.equal(SegmentType.String.name(), ruleSegment.getSegmentType())) {
                 Assert.notEmpty(ruleSegment.getText(), () -> new CommonException(""));
             } else if (Objects.equal(SegmentType.Date.name(), ruleSegment.getSegmentType())) {
@@ -78,25 +88,28 @@ public class RuleServiceImpl implements RuleService {
                 Assert.notNull(ruleSegment.getMaxLength());
             }
         }
-
-        ruleDetail.getSegmentList().forEach(ruleSegmentEntity -> ruleSegmentEntity.setRuleId(ruleEntity.getRuleId()));
-        ruleSegmentDao.saveAll(ruleDetail.getSegmentList());
-        return ruleDetail;
     }
 
     @Override
-    public List<RuleSegmentEntity> createRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList) {
-        return ruleSegmentDao.saveAll(ruleSegmentEntityList);
+    public List<RuleSegmentEntity> createRuleSegment(RuleDetail ruleDetail) {
+        RuleEntity rule = ruleDetail.getRule();
+        Optional<RuleEntity> originRule = ruleDao.findById(rule.getRuleId());
+        Assert.isTrue(originRule.isPresent(), () -> new CommonException(""));
+        List<RuleSegmentEntity> segmentList = ruleDetail.getSegmentList();
+        Assert.isTrue(segmentList.stream().allMatch(segment -> Objects.equal(segment.getRuleId(), rule.getRuleId())));
+        checkSegment(segmentList);
+        return ruleSegmentDao.saveAll(segmentList);
     }
 
     @Override
     public List<RuleSegmentEntity> updateRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList) {
+        checkSegment(ruleSegmentEntityList);
         return ruleSegmentDao.saveAll(ruleSegmentEntityList);
     }
 
     @Override
-    public List<RuleSegmentEntity> cancelRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList) {
-        return ruleSegmentDao.saveAll(ruleSegmentEntityList);
+    public void cancelRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList) {
+        ruleSegmentDao.deleteAllInBatch(ruleSegmentEntityList);
     }
 
     @Override

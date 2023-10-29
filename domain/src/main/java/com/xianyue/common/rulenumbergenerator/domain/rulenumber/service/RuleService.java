@@ -17,11 +17,11 @@ import java.util.Map;
 public interface RuleService {
     RuleDetail createRule(RuleDetail ruleDetail);
 
-    List<RuleSegmentEntity> createRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList);
+    List<RuleSegmentEntity> createRuleSegment(RuleDetail ruleDetail);
 
     List<RuleSegmentEntity> updateRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList);
 
-    List<RuleSegmentEntity> cancelRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList);
+    void cancelRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList);
 
     RuleDetail findRuleById(Long ruleId);
 
