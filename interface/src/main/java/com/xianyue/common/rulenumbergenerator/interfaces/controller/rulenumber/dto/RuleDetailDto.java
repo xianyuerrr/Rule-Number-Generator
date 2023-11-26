@@ -2,7 +2,9 @@ package com.xianyue.common.rulenumbergenerator.interfaces.controller.rulenumber.
 
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleDetail;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -10,7 +12,9 @@ import java.util.List;
  */
 @Data
 public class RuleDetailDto {
+    @NotNull
     RuleDto rule;
 
+    @NotEmpty
     List<RuleSegmentDto> segmentList;
 }
