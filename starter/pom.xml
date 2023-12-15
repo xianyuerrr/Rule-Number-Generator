@@ -13,6 +13,17 @@
     <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
     <artifactId>starter</artifactId>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- MySQL提供的JDBC驱动包 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 
     <dependencies>
         <dependency>
