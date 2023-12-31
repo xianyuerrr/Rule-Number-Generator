@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.xianyue.common</groupId>
+    <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
     <artifactId>Rule-Number-Generator</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <description>编号规则生成器</description>
@@ -213,6 +213,34 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <!-- deploy插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <!--远程仓库的唯一标识-->
+            <id>maven-snapshots</id>
+            <name>nexus</name>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+            <!--如何处理远程仓库里发布版本的下载-->
+            <releases>
+                <enabled>true</enabled>
+                <!--更新频率 always一直 daily 默认日 interval 间隔时间分钟 never从不-->
+                <updatePolicy>always</updatePolicy>
+                <!--校验失败策略  ignore fail warn-->
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <!--用于定位和排序构建的仓库布局类型 default 和legacy -->
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 </project>

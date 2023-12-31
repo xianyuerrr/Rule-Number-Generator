@@ -8,7 +8,7 @@
     <artifactId>application</artifactId>
 
     <parent>
-        <groupId>com.xianyue.common</groupId>
+        <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
         <artifactId>Rule-Number-Generator</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>

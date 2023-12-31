@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>Rule-Number-Generator</artifactId>
-        <groupId>com.xianyue.common</groupId>
+        <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 

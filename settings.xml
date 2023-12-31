@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <!--maven是否需要和用户交互以获得输入 默认为true-->
+    <interactiveMode>true</interactiveMode>
+    <!--是否需要plugin-registry.xml文件来管理插件版本-->
+    <usePluginRegistry>false</usePluginRegistry>
+    <!--是否需要离线模式下运行-->
+    <offline>false</offline>
+    <servers>
+        <!--打包上传到私服时，设置私服的鉴权信息-->
+        <server>
+            <id>maven-releases</id>
+            <username>admin</username>
+            <password>307860</password>
+        </server>
+        <server>
+            <id>maven-snapshots</id>
+            <username>admin</username>
+            <password>307860</password>
+        </server>
+    </servers>
+    <mirrors>
+        <!-- 被镜像的服务器的id, 必须与 repository 节点设置的 ID 一致
+         | mirrorOf 的配置语法:
+         | *           = 匹配所有远程仓库。 这样所有 pom 中定义的仓库都不生效
+         | external:*  = 匹配除 localhost、使用 file:// 协议外的所有远程仓库
+         | repo1,repo2 = 匹配仓库 repo1 和 repo2
+         | *,!repo1    = 匹配所有远程仓库, repo1 除外
+         |-->
+        <!--mirror可以拦截对远程仓库的请求 , 改变对目标仓库的下载地址-->
+        <mirror>
+            <id>maven-snapshots</id>
+            <mirrorOf>maven-snapshots</mirrorOf>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+        </mirror>
+    </mirrors>
+    <profiles>
+        <profile>
+            <!--profile的唯一标识符-->
+            <id>nexus</id>
+            <!--自动触发profile的条件逻辑-->
+            <activation>
+                <!--是否默认激活-->
+                <activeByDefault>false</activeByDefault>
+                <!--当匹配的jdk被检测到 profile激活-->
+                <jdk>21</jdk>
+            </activation>
+            <!--远程仓库列表 用来填充本地仓库的远程仓库-->
+            <repositories>
+                <repository>
+                    <!--远程仓库的唯一标识-->
+                    <id>maven-snapshots</id>
+                    <name>nexus</name>
+                    <url>http://localhost:8081/repository/maven-snapshots/</url>
+                    <!--如何处理远程仓库里发布版本的下载-->
+                    <releases>
+                        <enabled>true</enabled>
+                        <!--更新频率 always一直 daily 默认日 interval 间隔时间分钟 never从不-->
+                        <updatePolicy>always</updatePolicy>
+                        <!--校验失败策略  ignore fail warn-->
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                    <!--用于定位和排序构建的仓库布局类型 default 和legacy -->
+                    <layout>default</layout>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <!--手动激活profile id-->
+        <activeProfile>nexus</activeProfile>
+    </activeProfiles>
+</settings>
+
