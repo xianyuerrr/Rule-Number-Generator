@@ -3,6 +3,7 @@ package com.xianyue.common.rulenumbergenerator.domain.rulenumber.service;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.entity.RuleSegmentEntity;
 import com.xianyue.common.rulenumbergenerator.domain.rulenumber.vo.RuleDetail;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ public interface RuleService {
 
     void cancelRuleSegment(List<RuleSegmentEntity> ruleSegmentEntityList);
 
+    @Cacheable(key = "#ruleId", value = "ruleDetail")
     RuleDetail findRuleById(Long ruleId);
 
     List<RuleEntity> findRuleByIdList(List<Long> ruleIdList);

@@ -18,6 +18,8 @@
         <module>infrastructure</module>
         <module>starter</module>
         <module>common</module>
+        <module>rule-number-spi</module>
+        <module>rule-number-provider</module>
     </modules>
 
     <properties>
