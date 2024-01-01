@@ -4,26 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
-    <artifactId>domain</artifactId>
-
-
     <parent>
-        <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
-        <artifactId>Rule-Number-Generator</artifactId>
+        <groupId>com.xianyue.common.rulenumber</groupId>
+        <artifactId>rule-number-generator</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
+    <artifactId>domain</artifactId>
+
     <dependencies>
         <dependency>
-            <groupId>com.xianyue.common</groupId>
+            <groupId>com.xianyue.common.rulenumber</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xianyue.common</groupId>
+            <artifactId>xianyue-entity</artifactId>
         </dependency>
     </dependencies>
 

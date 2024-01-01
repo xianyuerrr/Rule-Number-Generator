@@ -3,18 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
-        <artifactId>Rule-Number-Generator</artifactId>
+        <groupId>com.xianyue.common.rulenumber</groupId>
+        <artifactId>rule-number-generator</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
     <artifactId>interface</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.xianyue.common.ruleNumberGenerator</groupId>
+            <groupId>com.xianyue.common.rulenumber</groupId>
             <artifactId>application</artifactId>
             <version>${project.version}</version>
         </dependency>
